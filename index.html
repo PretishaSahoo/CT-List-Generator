@@ -53,6 +53,21 @@
             </div>
 
             <div class="mb-3">
+                <label for="reportingTime" class="form-label">Reporting Time:</label>
+                <input type="text" class="form-control" id="reportingTime" required step="60">
+            </div>            
+
+            <div class="mb-3">
+                <label for="students" class="form-label">Enter Coordinators' Name:</label>
+                <input type="text" class="form-control" id="coordinator" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="students" class="form-label">Enter Coordinators' Number:</label>
+                <input type="text" class="form-control" id="coordinatorsNumber" required>
+            </div>
+
+            <div class="mb-3">
                 <label for="students" class="form-label">Enter Students' Names (separated by commas):</label>
                 <input type="text" class="form-control" id="students" required>
             </div>
@@ -74,6 +89,9 @@
             const dateInput = document.getElementById('date').value;
             const hotelNameInput = capitalizeFirstLetters(document.getElementById('hotelName').value);
             const studentsInput = capitalizeEachWord(document.getElementById('students').value);
+            const ReportingTimeInput = capitalizeEachWord(document.getElementById('reportingTime').value);
+            const coordinatorInput = capitalizeEachWord(document.getElementById('coordinator').value);
+            const coordinatorNumberInput = capitalizeEachWord(document.getElementById('coordinatorsNumber').value);
 
             const studentsArray = studentsInput.split(',').map(name => name.trim());
 
@@ -84,12 +102,31 @@
                 .then(response => response.json())
                 .then(jsonData => {
                     if (Array.isArray(jsonData)) {
+
+                        const lineBreak = document.createElement('br');
+
+
                         const reportHeader = document.createElement('div');
                         reportHeader.textContent = `${hotelNameInput} - ${dateInput}`;
                         reportHeader.classList.add('bold-text');
+                        reportHeader.classList.add('my-2');
                         reportDiv.appendChild(reportHeader);
+                        reportDiv.appendChild(lineBreak);
 
-                        const lineBreak = document.createElement('br');
+
+
+                        const Time = document.createElement('div');
+                        Time.textContent = `Reporting Time - ${ReportingTimeInput}`;
+                        Time.classList.add('bold-text');
+                        Time.classList.add('my-2');
+                        reportDiv.appendChild(Time);
+                        reportDiv.appendChild(lineBreak);
+
+
+
+                        const Coordinator = document.createElement('div');
+                        Coordinator.textContent = `Coordinator:  ${coordinatorInput} ( ${coordinatorNumberInput} )`;
+                        reportDiv.appendChild(Coordinator);
                         reportDiv.appendChild(lineBreak);
 
                         const listContainer = document.createElement('ol');
@@ -104,6 +141,8 @@
                             }
                         });
                         reportDiv.appendChild(listContainer);
+
+
 
                         document.getElementById('report-container').style.display = 'block';
                     } else {
@@ -138,6 +177,9 @@
             document.getElementById('hotelName').value = '';
             document.getElementById('students').value = '';
             document.getElementById('report').innerHTML = '';
+            document.getElementById('reportingTime').value = '';
+            document.getElementById('coordinator').value = '';
+            document.getElementById('coordinatorsNumber').value = '';
             document.getElementById('report-container').style.display = 'none';
         }
     </script>
