@@ -87,6 +87,11 @@
     <script>
         function generateReport() {
             const dateInput = document.getElementById('date').value;
+            const dateParts = dateInput.split('-');
+            const day = dateParts[2];
+            const month = dateParts[1];
+            const year = dateParts[0];
+            const formattedDate = `${day}/ ${month} /${year}`;
             const hotelNameInput = capitalizeFirstLetters(document.getElementById('hotelName').value);
             const studentsInput = capitalizeEachWord(document.getElementById('students').value);
             const ReportingTimeInput = capitalizeEachWord(document.getElementById('reportingTime').value);
@@ -107,7 +112,7 @@
 
 
                         const reportHeader = document.createElement('div');
-                        reportHeader.textContent = `${hotelNameInput} - ${dateInput}`;
+                        reportHeader.textContent = `${hotelNameInput} - ${formattedDate}`;
                         reportHeader.classList.add('bold-text');
                         reportHeader.classList.add('my-2');
                         reportDiv.appendChild(reportHeader);
