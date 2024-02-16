@@ -134,26 +134,29 @@
                         reportDiv.appendChild(Coordinator);
                         reportDiv.appendChild(lineBreak);
 
-                        const listContainer = document.createElement('ol');
-                        listContainer.classList.add('numbered-list');
-                        studentsArray.forEach(studentName => {
+
+                        const listContainer = document.createElement('div');
+    
+                        studentsArray.forEach((studentName , index) => {
                             const student = jsonData.find(s => s.name.toLowerCase() === studentName.toLowerCase());
                             if (student) {
-                                const listItem = document.createElement('li');
-                                listItem.innerHTML = `${capitalizeEachWord(studentName)} <br> (${student.location})`;
+                                const listItem = document.createElement('div');
+                                listItem.innerHTML = `${index+1} . ${capitalizeEachWord(studentName)} <br> (${student.location})`;
                                 listItem.classList.add('normal-text');
                                 listContainer.appendChild(listItem);
                             }
                         });
                         reportDiv.appendChild(listContainer);
-
-
-
                         document.getElementById('report-container').style.display = 'block';
-                    } else {
+
+
+                    }
+                    
+                    else {
                         reportDiv.textContent = 'Invalid JSON format. Make sure it is an array of objects.';
                     }
                 })
+
                 .catch(error => {
                     reportDiv.textContent = 'Error loading JSON file. Please check the file path and try again.';
                 });
